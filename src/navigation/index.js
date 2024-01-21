@@ -78,7 +78,7 @@ export default function AppNavigation() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName='Splash'
+        initialRouteName='HomeTabs'
         screenOptions={{
           headerShown: false,
         }}
