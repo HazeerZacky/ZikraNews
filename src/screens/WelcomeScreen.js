@@ -45,7 +45,7 @@ export default function WelcomeScreen() {
       </View>
 
       <TouchableOpacity
-        className="bg-[#680104] rounded-full p-4 justify-center items-center w-[90%] mt-8"
+        className="bg-[#C10000] rounded-full p-4 justify-center items-center w-[90%] mt-8"
         onPress={() => navigation.navigate("HomeTabs")}
       >
         <Text className="text-base font-bold text-white">Getting Started</Text>

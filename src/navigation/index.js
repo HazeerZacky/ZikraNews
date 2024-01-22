@@ -50,13 +50,13 @@ export default function AppNavigation() {
               <Ionicons
                 name={iconName}
                 size={customizeSize}
-                color={focused ? (colorScheme === 'dark' ? '#fff' : '#680104') : 'gray'}
+                color={focused ? (colorScheme === 'dark' ? '#fff' : '#C10000') : 'gray'}
               />
             );
           },
 
           // Set active and inactive tint colors, label style, and background color
-          tabBarActiveTintColor: colorScheme === 'dark' ? '#fff' : '#680104',
+          tabBarActiveTintColor: colorScheme === 'dark' ? '#fff' : '#C10000',
           tabBarInactiveTintColor: 'gray',
           tabBarLabelStyle: {
             fontSize: 12,
@@ -80,7 +80,7 @@ export default function AppNavigation() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="HomeTabs"
+        initialRouteName="Splash"
         screenOptions={{
           headerShown: false,
         }}
