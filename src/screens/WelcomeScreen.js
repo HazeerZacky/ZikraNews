@@ -7,9 +7,6 @@ import { useNavigation } from '@react-navigation/native';
 export default function WelcomeScreen() {
   const navigation = useNavigation();
 
-
-  // Hide the notification bar
-  //StatusBar.setHidden(false);
   return (
     <ImageBackground
       source={require("../../assets/images/welcome/reportor.jpg")}

@@ -9,12 +9,15 @@ export default function Header() {
   const { colorScheme, toggleColorScheme } = useColorScheme();
 
   return (
-    <View className="flex-row justify-between items-center mx-4 mt-4">
-      <View className="">
+    <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', margin: 10 }}>
+      <View>
         <Text
-          className="font-spaceGroteskBold text-2xl text-red-800 dark:text-white font-extrabold uppercase"
           style={{
-            fontFamily: "SpaceGroteskBold",
+            fontFamily: 'SpaceGroteskBold',
+            fontSize: 24,
+            color: colorScheme === 'dark' ? '#fff' : '#C10000',
+            fontWeight: 'bold',
+            textTransform: 'uppercase',
           }}
         >
           Zikara News
@@ -22,19 +25,24 @@ export default function Header() {
       </View>
 
       {/* Notification and Search Icon */}
-      <View className="flex-row space-x-4 rounded-full justify-center items-center">
-        <Switch value={colorScheme == "dark"} onChange={toggleColorScheme} />
-
-        <TouchableOpacity
-          onPress={() => navigation.navigate("Search")}
-          className="bg-gray-200 dark:bg-red-800  rounded-full p-2"
+      <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+        <Text
+          style={{
+            fontFamily: 'SpaceGroteskBold',
+            fontSize: 16,
+            color: colorScheme === 'dark' ? '#fff' : '#C10000',
+            fontWeight: 'bold',
+            textTransform: 'uppercase',
+          }}
         >
-          <MagnifyingGlassIcon
-            size={25}
-            strokeWidth={2}
-            color={colorScheme == "dark" ? "white" : "red"}
-          />
-        </TouchableOpacity>
+          Mode
+        </Text>
+        <Switch
+          value={colorScheme === 'dark'}
+          onValueChange={toggleColorScheme}
+          trackColor={{ false: '#C10000', true: '#fff' }}
+          thumbColor={colorScheme === 'dark' ? '#fff' : '#C10000'}
+        />
       </View>
     </View>
   );
