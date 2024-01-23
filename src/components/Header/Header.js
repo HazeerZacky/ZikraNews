@@ -20,7 +20,7 @@ export default function Header() {
             textTransform: 'uppercase',
           }}
         >
-          Zikara News
+          Zikra News
         </Text>
       </View>
 

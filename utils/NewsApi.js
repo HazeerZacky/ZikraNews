@@ -5,11 +5,11 @@ import axios from "axios";
 
 const apiBaseUrl = "https://newsapi.org/v2";
 
-const breakingNewsUrl = `${apiBaseUrl}/top-headlines?country=us&apiKey=${newsApiKey}`;
-const recommendedNewsUrl = `${apiBaseUrl}/top-headlines?country=us&category=business&apiKey=${newsApiKey}`;
+const breakingNewsUrl = `${apiBaseUrl}/top-headlines?country=in&apiKey=${newsApiKey}`;
+const recommendedNewsUrl = `${apiBaseUrl}/top-headlines?country=in&category=business&apiKey=${newsApiKey}`;
 
 const discoverNewsUrl = (discover) =>
-  `${apiBaseUrl}/top-headlines?country=us&category=${discover}&apiKey=${newsApiKey}`;
+  `${apiBaseUrl}/top-headlines?country=in&category=${discover}&apiKey=${newsApiKey}`;
 
 
 const searchNewsUrl = (query) =>

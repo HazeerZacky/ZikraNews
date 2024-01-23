@@ -80,7 +80,7 @@ export default function AppNavigation() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="HomeTabs"
+        initialRouteName="Splash"
         screenOptions={{
           headerShown: false,
         }}
