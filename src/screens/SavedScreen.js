@@ -200,6 +200,7 @@ export default function SavedScreen() {
           style={{
             backgroundColor: '#C10000',
           }}
+          onPress={clearSavedArticles}
         >
           <Text
             className="font-bold text-lg text-white dark:text-white"
@@ -212,20 +213,25 @@ export default function SavedScreen() {
         </TouchableOpacity>
       </View>
 
-      
-      <Text>SearchScreen</Text>
-
-      <View style={{ marginVertical: hp(2) }} className="space-y-2 ">
-        <FlatList
-          data={savedArticles}
-          showsVerticalScrollIndicator={false}
-          keyExtractor={(item) => item.title}
-          renderItem={renderItem}
-          contentContainerStyle={{
-            paddingBottom: hp(2),
-          }}
-        />
+      {savedArticles.length === 0 ? (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <Text style={{ textAlign: 'center', fontSize: 18, color: 'gray' }}>
+          No Saved Articles
+        </Text>
       </View>
+      ) : (
+        <View style={{ marginVertical: hp(2) }} className="space-y-2 ">
+          <FlatList
+            data={savedArticles}
+            showsVerticalScrollIndicator={false}
+            keyExtractor={(item) => item.title}
+            renderItem={renderItem}
+            contentContainerStyle={{
+              paddingBottom: hp(2),
+            }}
+          />
+        </View>
+      )}
     </SafeAreaView>
   )
 }

@@ -1,8 +1,8 @@
-import { View, Text, ScrollView } from 'react-native'
+import { View, Text, ScrollView, FlatList } from 'react-native';
 import React, { useState } from 'react'
 import { useColorScheme } from "nativewind";
 import { fetchBreakingNews, fetchRecommendedNews } from "../../utils/NewsApi"
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useInfiniteQuery  } from '@tanstack/react-query';
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from 'expo-status-bar';
 import Header from '../components/Header/Header';
@@ -19,6 +19,8 @@ export default function HomeScreen() {
   const { colorScheme, toggleColorScheme } = useColorScheme();
   const [breakingNews, SetBreakingNews] = useState([]);
   const [recommendedNews, SetRecommendedNews] = useState([]);
+  const [page, setPage] = useState(1); // Track the page number for pagination
+
 
   // Breaking News
   const { isLoading: isBreakingNewsLoading } = useQuery({
@@ -32,7 +34,7 @@ export default function HomeScreen() {
     },
   });
 
-  // Breaking News
+  // Recommended News
   const { isLoading: isRecommendedNewsLoading } = useQuery({
     queryKey: ["recommendedNews"],
     queryFn: fetchRecommendedNews,
