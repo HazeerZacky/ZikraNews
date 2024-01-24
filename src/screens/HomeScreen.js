@@ -1,8 +1,14 @@
 import { View, Text, ScrollView, FlatList } from 'react-native';
-import React, { useState } from 'react'
-import { useColorScheme } from "nativewind";
-import { fetchBreakingNews, fetchRecommendedNews } from "../../utils/NewsApi"
-import { useQuery, useInfiniteQuery  } from '@tanstack/react-query';
+import React, { useState } from 'react';
+import { useColorScheme } from "nativewind"; // Consider commenting on what "nativewind" is, if it's a custom library or part of your project structure.
+
+// Importing functions for fetching breaking and recommended news from an external source (NewsApi).
+import { fetchBreakingNews, fetchRecommendedNews } from "../../utils/NewsApi";
+
+// Importing hooks from the react-query library.
+import { useQuery, useInfiniteQuery } from '@tanstack/react-query';
+
+// Components for UI elements.
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from 'expo-status-bar';
 import Header from '../components/Header/Header';
@@ -12,22 +18,18 @@ import BreakingNews from '../components/BreakingNews';
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 import NewsSection from '../components/NewsSection/NewsSection';
 
-
-
-
 export default function HomeScreen() {
   const { colorScheme, toggleColorScheme } = useColorScheme();
-  const [breakingNews, SetBreakingNews] = useState([]);
-  const [recommendedNews, SetRecommendedNews] = useState([]);
+  const [breakingNews, setBreakingNews] = useState([]);
+  const [recommendedNews, setRecommendedNews] = useState([]);
   const [page, setPage] = useState(1); // Track the page number for pagination
-
 
   // Breaking News
   const { isLoading: isBreakingNewsLoading } = useQuery({
-    queryKey: ["breakingNewss"],
+    queryKey: ["breakingNews"],
     queryFn: fetchBreakingNews,
     onSuccess: (data) => {
-      SetBreakingNews(data.articles);
+      setBreakingNews(data.articles);
     },
     onError: (error) => {
       console.log("Error fetching breaking news", error);
@@ -39,7 +41,7 @@ export default function HomeScreen() {
     queryKey: ["recommendedNews"],
     queryFn: fetchRecommendedNews,
     onSuccess: (data) => {
-      SetRecommendedNews(data.articles);
+      setRecommendedNews(data.articles);
     },
     onError: (error) => {
       console.log("Error fetching recommended news", error);
@@ -47,39 +49,38 @@ export default function HomeScreen() {
   });
 
   return (
-    <SafeAreaView className=" flex-1 bg-white dark:bg-neutral-900">
+    <SafeAreaView className="flex-1 bg-white dark:bg-neutral-900">
       <StatusBar style={colorScheme == "dark" ? "light" : "dark"} />
       <Header />
 
-        {/* BreakingNews News */}
-
-        {isBreakingNewsLoading ? (
-          <Loading />
-        ) : (
-          <View className="">
-            <MiniHeader label="Breaking News" />
-            <BreakingNews label="Breaking News" data={breakingNews} />
-          </View>
-        )}
-
-        <View>
-          <MiniHeader label="Recommended News" />
-          <ScrollView
-            contentContainerStyle={{
-              paddingBottom: hp(80),
-            }} 
-          >
-            {isRecommendedNewsLoading ? (
-              <Loading />
-            ) : (
-              <NewsSection label="Recommendation" newsProps={recommendedNews} />
-
-            )}
-
-          </ScrollView>
+      {/* BreakingNews Section */}
+      {isBreakingNewsLoading ? (
+        <Loading />
+      ) : (
+        <View className="">
+          <MiniHeader label="Breaking News" />
+          <BreakingNews label="Breaking News" data={breakingNews} />
         </View>
+      )}
 
+      {/* Recommended News Section */}
+      <View>
+        <MiniHeader label="Recommended News" />
+        <ScrollView
+          contentContainerStyle={{
+            paddingBottom: hp(80),
+          }}
+        >
+          {isRecommendedNewsLoading ? (
+            <Loading />
+          ) : (
+            <NewsSection label="Recommendation" newsProps={recommendedNews} />
+          )}
+        </ScrollView>
+      </View>
+
+      {/* Placeholder Text */}
       <Text>HomeScreen</Text>
     </SafeAreaView>
-  )
+  );
 }

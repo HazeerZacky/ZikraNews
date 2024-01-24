@@ -11,6 +11,7 @@ export default function SplashScreens() {
 
   // Load custom fonts using expo-font
   const [fontsLoaded, fontError] = useFonts({
+    // Define custom fonts for the app
     SpaceGroteskSemiBold: require("../fonts/SpaceGrotesk-SemiBold.ttf"),
     SpaceGroteskBold: require("../fonts/SpaceGrotesk-Bold.ttf"),
     SpaceGroteskMedium: require("../fonts/SpaceGrotesk-Medium.ttf"),
@@ -18,11 +19,12 @@ export default function SplashScreens() {
 
   // Callback function to hide the splash screen after fonts are loaded
   const onLayoutRootView = useCallback(async () => {
+    // Check if fonts are loaded successfully or if there's an error
     if (fontsLoaded || fontError) {
       await SplashScreen.hideAsync();
     }
 
-    // Navigate to the "Welcome" screen after a delay of 3000 milliseconds (3 seconds)
+    // Navigate to the "Welcome" screen after a delay of 4000 milliseconds (4 seconds)
     setTimeout(() => {
       navigation.navigate("Welcome");
     }, 4000);

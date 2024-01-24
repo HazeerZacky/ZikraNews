@@ -1,55 +1,49 @@
+// Importing necessary components and modules from React Native and other libraries
 import {
-  View,
-  Text,
-  ScrollView,
-  Image,
-  TouchableOpacity,
-  TextInput,
-  ActivityIndicator,
+  View, Text, ScrollView, TouchableOpacity, TextInput,
 } from "react-native";
-import React, { useEffect, useState, useReducer } from "react";
+import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useColorScheme } from "nativewind";
 import { StatusBar } from "expo-status-bar";
 import Loading from "../components/Loading";
 import { useQuery } from "@tanstack/react-query";
-import { categories, newsData } from "../constants";
+import { categories } from "../constants";
 
+// Importing custom components and icons
 import CategoriesCard from "../components/CategoriesCard";
 import NewsSection from "../components/NewsSection/NewsSection";
 import { MagnifyingGlassIcon, XMarkIcon } from "react-native-heroicons/outline";
 import { useNavigation } from "@react-navigation/native";
 import { fetchDiscoverNews } from "../../utils/NewsApi";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
-import BreakingNews from "../components/BreakingNews";
-import Header from "../components/Header/Header";
-
 export default function DiscoverScreen() {
+  // Navigation and color scheme handling
   const navigation = useNavigation();
   const { colorScheme, toggleColorScheme } = useColorScheme();
+
+  // State variables for managing the active category and news data
   const [activeCategory, setActiveCategory] = useState("business");
-  const [selectedCategoryTitle, setSelectedCategoryTitle] =
-    useState("Architecture");
+  const [selectedCategoryTitle, setSelectedCategoryTitle] = useState("Architecture");
   const [newsMain, setNewsMain] = useState([]);
   const [discoverNews, setDiscoverNews] = useState([]);
 
-
+  // Log active category whenever it changes
   useEffect(() => {
     console.log("active category", activeCategory);
   }, [activeCategory]);
 
+  // Handle category change
   const handleChangeCategory = (category) => {
-    // getRecipes(category);
     setActiveCategory(category);
     setDiscoverNews([]);
-    console.log("category", category);
   };
 
+  // UseQuery hook to fetch discover news
   const { isLoading: isDiscoverLoading } = useQuery({
-    queryKey: ["discoverNews", activeCategory], // Include the category as part of the key
-    queryFn: () => fetchDiscoverNews(activeCategory), // You can skip the query if the category is "business"
+    queryKey: ["discoverNews", activeCategory],
+    queryFn: () => fetchDiscoverNews(activeCategory),
     onSuccess: (data) => {
-      // Filter out articles with title "[Removed]"
       const filteredNews = data.articles.filter(
         (article) => article.title !== "[Removed]"
       );
@@ -60,6 +54,7 @@ export default function DiscoverScreen() {
     },
   });
 
+  // Render the DiscoverScreen component
   return (
     <SafeAreaView className="pt-8 bg-white dark:bg-neutral-900">
       <StatusBar style={colorScheme == "dark" ? "light" : "dark"} />
@@ -76,7 +71,6 @@ export default function DiscoverScreen() {
           >
             Discover
           </Text>
-
           <Text
             style={{
               fontFamily: 'SpaceGroteskBold',
@@ -95,7 +89,6 @@ export default function DiscoverScreen() {
             <MagnifyingGlassIcon size="25" color="gray" />
           </TouchableOpacity>
           <TextInput
-            // onChangeText={handleTextDebounce}
             placeholder="Search for news"
             placeholderTextColor={"gray"}
             className="pl-4 flex-1 font-medium text-black tracking-wider"
@@ -127,9 +120,10 @@ export default function DiscoverScreen() {
             </Text>
           </View>
 
+          {/* Loading indicator or NewsSection based on data availability */}
           {isDiscoverLoading ? (
-          <Loading />
-        ) : (
+            <Loading />
+          ) : (
             <ScrollView
               contentContainerStyle={{
                 paddingBottom: hp(70),
