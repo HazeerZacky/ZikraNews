@@ -87,13 +87,6 @@ export default function SavedScreen() {
             const savedArticlesArray = savedArticles
               ? JSON.parse(savedArticles)
               : [];
-  
-            // const isArticleBookmarkedList = urlList.map((url) =>
-            //   savedArticlesArray.some((savedArticle) => savedArticle.url === url)
-            // );
-  
-            // Set the bookmark status for all items based on the loaded data
-            // setBookmarkStatus(isArticleBookmarkedList);
             setSavedArticles(savedArticlesArray);
           } catch (error) {
             console.log("Error loading saved articles", error);
