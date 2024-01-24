@@ -13,6 +13,7 @@ import SearchScreen from '../screens/SearchScreen';
 import SplashScreens from '../screens/SplashScreens';
 import NewsDetails from '../screens/NewsDetails';
 import WelcomeScreen from '../screens/WelcomeScreen';
+import ProfileScreen from '../screens/ProfileScreen';
 
 // Create Tab and Stack navigators
 const Tab = createBottomTabNavigator();
@@ -35,11 +36,13 @@ export default function AppNavigation() {
             if (route.name === 'Home') {
               iconName = 'home';
             } else if (route.name === 'Discover') {
-              iconName = 'compass-outline';
+              iconName = 'compass';
             } else if (route.name === 'Saved') {
-              iconName = 'bookmark-outline';
+              iconName = 'bookmark';
             } else if (route.name === 'Search') {
-              iconName = 'search-outline';
+              iconName = 'search';
+            } else if (route.name === 'Info') {
+              iconName = 'alert-circle-sharp';
             }
 
             // Define size for the icons
@@ -72,6 +75,7 @@ export default function AppNavigation() {
         <Tab.Screen name="Discover" component={DiscoverScreen} />
         <Tab.Screen name="Saved" component={SavedScreen} />
         <Tab.Screen name="Search" component={SearchScreen} />
+        <Tab.Screen name="Info" component={ProfileScreen} />
       </Tab.Navigator>
     );
   };
